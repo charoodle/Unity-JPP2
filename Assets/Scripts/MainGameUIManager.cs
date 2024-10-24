@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainGameUIManager : MonoBehaviour
 {
@@ -49,5 +50,10 @@ public class MainGameUIManager : MonoBehaviour
     public void SetBestScoreText(string playerName, int highScore)
     {
         _bestScoreText.text = $"Best Score : {playerName} : {highScore}";
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

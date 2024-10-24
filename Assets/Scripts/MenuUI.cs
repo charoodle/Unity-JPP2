@@ -11,6 +11,22 @@ using UnityEditor;
 public class MenuUI : MonoBehaviour
 {
     [SerializeField] TMP_InputField PlayerNameInputField;
+    [SerializeField] TextMeshProUGUI CurrentHighScoreText;
+
+    private void Start()
+    {
+        // Show current high score on main menu
+        if(PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.PlayerData currentBest = PlayerDataManager.Instance.HighScorePlayer;
+
+            // Does a high score player score exist with > 0 score?
+            if (currentBest.PlayerName != "" && currentBest.HighScore > 0)
+                CurrentHighScoreText.text = $"Current Best: {currentBest.PlayerName} - {currentBest.HighScore}";
+            else
+                CurrentHighScoreText.text = "No high score set yet.";
+        }
+    }
 
     public void StartGame()
     {
