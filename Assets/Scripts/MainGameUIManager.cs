@@ -49,7 +49,12 @@ public class MainGameUIManager : MonoBehaviour
 
     public void SetBestScoreText(string playerName, int highScore)
     {
-        _bestScoreText.text = $"Best Score : {playerName} : {highScore}";
+        if(playerName == "" && highScore <= 0)
+        {
+            _bestScoreText.text = $"Best Score : None yet.";
+        }
+        else
+            _bestScoreText.text = $"Best Score : {playerName} : {highScore}";
     }
 
     public void GoToMainMenu()
