@@ -12,6 +12,7 @@ public class MainManager : MonoBehaviour
 
     [SerializeField] MainGameUIManager MainGameUIManager;
     public GameObject GameOverText;
+    public GameObject NewHighScoreText;
     
     private bool m_Started = false;
     private int m_Points;
@@ -73,5 +74,44 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        // Test best score UI display without saving
+        //PlayerDataManager.Instance.CurrentPlayer.HighScore = m_Points;
+        //StartCoroutine(SetBestScoreTextCoroutine());
+        //return;
+
+        // Set current player's score on game end
+        if (PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.Instance.CurrentPlayer.HighScore = m_Points;
+
+            // Is it better than high score?
+            if (PlayerDataManager.Instance != null)
+            {
+                bool newHighScore = PlayerDataManager.Instance.CurrentPlayerTrySubmitNewHighScore();
+                if(newHighScore)
+                    StartCoroutine(SetBestScoreTextCoroutine());
+            }
+        }
+    }
+
+    /// <summary>
+    /// Update the UI in the game over screen to reflect current player setting a new high score.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator SetBestScoreTextCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        // Display congratulatory message
+        NewHighScoreText.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Set UI in game to update
+        if (PlayerDataManager.Instance == null)
+            yield break;
+        PlayerDataManager.PlayerData player = PlayerDataManager.Instance.CurrentPlayer;
+        MainGameUIManager.SetBestScoreText(player.PlayerName, player.HighScore);
     }
 }

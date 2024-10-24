@@ -15,7 +15,7 @@ public class MenuUI : MonoBehaviour
     public void StartGame()
     {
         // Save across scenes
-        PlayerDataManager.Instance.CurrentPlayerName = PlayerNameInputField.text;
+        PlayerDataManager.Instance.CurrentPlayer.PlayerName = PlayerNameInputField.text;
 
         SceneManager.LoadScene(1);
     }

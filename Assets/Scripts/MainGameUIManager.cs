@@ -20,16 +20,15 @@ public class MainGameUIManager : MonoBehaviour
         // Get current player name - data persistence through scenes
         if(PlayerDataManager.Instance != null)
         {
-            _currentPlayerName = PlayerDataManager.Instance.CurrentPlayerName;
+            _currentPlayerName = PlayerDataManager.Instance.CurrentPlayer.PlayerName;
             SetScoreText(0);
         }
     }
 
-    //void SetBestScoreText(string playerName, int highScore)
-    //{
-    //    _bestScoreText.text = $"Best Score : {playerName} : {highScore}";
-    //}
-
+    /// <summary>
+    /// Set current game score UI
+    /// </summary>
+    /// <param name="score"></param>
     public void SetScoreText(int score)
     {
         // Process with a dash at end if not empty player name
@@ -41,5 +40,10 @@ public class MainGameUIManager : MonoBehaviour
 
         // Update UI with current game's score 
         _gameScoreText.text = $"{currentPlayer} Score : {score}";
+    }
+
+    public void SetBestScoreText(string playerName, int highScore)
+    {
+        _bestScoreText.text = $"Best Score : {playerName} : {highScore}";
     }
 }
