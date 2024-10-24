@@ -29,10 +29,8 @@ public class MenuUI : MonoBehaviour
 #endif
     }
 
-    [System.Serializable]
-    public class SaveData
+    public void ClearLocalHighScore()
     {
-        public string PlayerName;
+        PlayerDataManager.Instance.ClearLocalHighScore();
     }
-
 }

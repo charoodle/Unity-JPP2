@@ -75,22 +75,17 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
 
-        // Test best score UI display without saving
-        //PlayerDataManager.Instance.CurrentPlayer.HighScore = m_Points;
-        //StartCoroutine(SetBestScoreTextCoroutine());
-        //return;
-
         // Set current player's score on game end
         if (PlayerDataManager.Instance != null)
         {
+            // Update current player's final score
             PlayerDataManager.Instance.CurrentPlayer.HighScore = m_Points;
 
-            // Is it better than high score?
-            if (PlayerDataManager.Instance != null)
+            // Is current player better than high score?
+            bool newHighScore = PlayerDataManager.Instance.CurrentPlayerTrySubmitNewHighScore();
+            if(newHighScore)
             {
-                bool newHighScore = PlayerDataManager.Instance.CurrentPlayerTrySubmitNewHighScore();
-                if(newHighScore)
-                    StartCoroutine(SetBestScoreTextCoroutine());
+                StartCoroutine(SetBestScoreTextCoroutine());
             }
         }
     }

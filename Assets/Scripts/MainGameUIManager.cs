@@ -17,11 +17,15 @@ public class MainGameUIManager : MonoBehaviour
         //int highScore = 0;
         //SetBestScoreText(playerName, highScore);
 
-        // Get current player name - data persistence through scenes
         if(PlayerDataManager.Instance != null)
         {
+            // Get current player name - data persistence through scenes
             _currentPlayerName = PlayerDataManager.Instance.CurrentPlayer.PlayerName;
             SetScoreText(0);
+
+            // Get current high score
+            PlayerDataManager.PlayerData highScorePlayer = PlayerDataManager.Instance.HighScorePlayer;
+            SetBestScoreText(highScorePlayer.PlayerName, highScorePlayer.HighScore);
         }
     }
 
