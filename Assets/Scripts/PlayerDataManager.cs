@@ -29,6 +29,7 @@ public class PlayerDataManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        CurrentPlayer = new PlayerData();
         LoadHighScorePlayer();
     }
 
@@ -78,12 +79,15 @@ public class PlayerDataManager : MonoBehaviour
         File.WriteAllText(path, json);
     }
 
+    /// <summary>
+    /// Handles initializing the high score player from last session.
+    /// </summary>
     public void LoadHighScorePlayer()
     {
         // Check if file exists
         string path = Application.persistentDataPath + _saveDataFileName;
 
-        if(File.Exists(path))
+        if (File.Exists(path))
         {
             // Get json from file (assuming it is json)
             string json = File.ReadAllText(path);
@@ -91,7 +95,9 @@ public class PlayerDataManager : MonoBehaviour
             // Read json into player object
             HighScorePlayer = JsonUtility.FromJson<PlayerData>(json);
         }
-        else
+
+        // Null check in case: 1. Nothing read from JSON. 2. File doesn't exist.
+        if (HighScorePlayer == null)
         {
             HighScorePlayer = new PlayerData();
         }
