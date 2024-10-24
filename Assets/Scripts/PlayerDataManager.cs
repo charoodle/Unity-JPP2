@@ -50,13 +50,10 @@ public class PlayerDataManager : MonoBehaviour
         // Make sure high score is higher
         if (CurrentPlayer.HighScore <= HighScorePlayer.HighScore)
         {
-            Debug.Log($"No new high score - CurrentPlayerScore={CurrentPlayer.HighScore} <= HighScore={HighScorePlayer.HighScore}");
             return false;
         }
         else
         {
-            Debug.Log($"Setting new high score! - CurrentPlayerScore={CurrentPlayer.HighScore} > HighScore={HighScorePlayer.HighScore}");
-
             // Set it - Serializable is a REFERENCE TYPE, not a value type
             //HighScorePlayer = CurrentPlayer;      // Cannot do this; otherwise if set a high score, HighScore references CurrentPlayer, so any subsequent scores (high score or not) will have an inaccurate HighScore object
                                                     // so that's why in inspector, even tho no high score code was being run/hit, they still were updating to the same values since HighScorePlayer = CurrentPlayer reference
