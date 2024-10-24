@@ -23,6 +23,7 @@ public class PlayerDataManager : MonoBehaviour
         if(Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
 
         Instance = this;
