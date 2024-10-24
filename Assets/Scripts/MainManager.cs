@@ -10,7 +10,7 @@ public class MainManager : MonoBehaviour
     public int LineCount = 6;
     public Rigidbody Ball;
 
-    public Text ScoreText;
+    [SerializeField] MainGameUIManager MainGameUIManager;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -18,10 +18,11 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+
     
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -65,7 +66,7 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        MainGameUIManager.SetScoreText(m_Points);
     }
 
     public void GameOver()
